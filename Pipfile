@@ -9,5 +9,8 @@ fastapi = "*"
 
 [dev-packages]
 
+[scripts]
+dev = "uvicorn main:app --reload"
+
 [requires]
 python_version = "3.9"
