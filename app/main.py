@@ -14,9 +14,9 @@ models.Base.metadata.create_all(engine)
 app = FastAPI(docs_url=None, redoc_url=None)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+app.include_router(auth.router)
 app.include_router(blog.router)
 app.include_router(user.router)
-app.include_router(auth.router)
 
 
 @app.get("/docs", include_in_schema=False)
