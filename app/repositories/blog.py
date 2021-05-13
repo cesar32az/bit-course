@@ -1,6 +1,5 @@
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
-from typing import List
 from app import schemas, models
 
 
@@ -28,7 +27,7 @@ def get_one(id: int, db: Session):
     return blog
 
 
-def delete_blog(id: int, db: Session):
+def delete_one(id: int, db: Session):
     blog = db.query(models.Blog).filter(models.Blog.id == id)
     if not blog:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
@@ -38,11 +37,11 @@ def delete_blog(id: int, db: Session):
     return {'detail': 'Blog deleted'}
 
 
-def update_blog(id: int, new_blog, db: Session):
+def update(id: int, updated_blog: schemas.Blog, db: Session):
     blog = db.query(models.Blog).filter(models.Blog.id == id)
     if not blog:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Blog with the id {id} not found")
-    blog.update(new_blog)
+    blog.update(updated_blog)
     db.commit()
     return {'detail': 'Blog updated'}

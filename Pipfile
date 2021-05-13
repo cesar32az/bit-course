@@ -9,12 +9,13 @@ fastapi = "*"
 sqlalchemy = "*"
 pylint = "*"
 passlib = "*"
+aiofiles = "*"
 
 [dev-packages]
 autopep8 = "*"
 
 [scripts]
-dev = "python main.py"
+dev = "uvicorn app.main:app --host 127.0.0.1 --port 4000 --reload "
 
 [requires]
 python_version = "3.9"
