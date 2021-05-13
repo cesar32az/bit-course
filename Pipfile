@@ -14,7 +14,7 @@ passlib = "*"
 autopep8 = "*"
 
 [scripts]
-dev = "uvicorn main:app --reload"
+dev = "python main.py"
 
 [requires]
 python_version = "3.9"
