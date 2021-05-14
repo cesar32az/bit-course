@@ -1,11 +1,13 @@
-from fastapi import HTTPException, status
+from fastapi import HTTPException, status, Depends
+from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
-from starlette.status import HTTP_401_UNAUTHORIZED
 from app import schemas, models
+from app.token import create_access_token
 from app.hashing import Hash
+from app.database import get_db
 
 
-def login(request: schemas.Login, db: Session):
+def login(request: OAuth2PasswordRequestForm, db: Session ):
     user = db.query(models.User).filter(
         models.User.email == request.email).first()
     if not user:
@@ -16,4 +18,5 @@ def login(request: schemas.Login, db: Session):
                             detail="Invalid password")
     # generate jwt token and return
 
-    return user
+    access_token = create_access_token(data={"sub": user.email})
+    return {"access_token": access_token, "token_type": "bearer"}

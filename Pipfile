@@ -10,6 +10,8 @@ sqlalchemy = "*"
 pylint = "*"
 passlib = "*"
 aiofiles = "*"
+python-jose = "*"
+python-multipart = "*"
 
 [dev-packages]
 autopep8 = "*"
